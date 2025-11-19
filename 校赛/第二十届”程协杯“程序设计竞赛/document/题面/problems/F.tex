@@ -1,0 +1,72 @@
+\begin{problem}[水+水=水]
+	
+	在一个二维网格世界中，水超现实地流动着。网格大小为$m \times n$，左上角为 $(0,0)$，右下角为$(m,n)$。
+	
+	\begin{quote}
+		「水源」：水流动的中心。
+		
+		「流动」：水会以水源为中心向周围流动，每流动一格，流量-1。流量降至0时，水不再继续流动。
+		
+		「流量」：一个格子可能会被多处水源流动到，该格子的流量为所有水源流动到此处的流量的最大值。水源的流量为5。
+		
+		「水的生成」：当一个格子周围四个存在至少两个水源，则该格子变为水源。水源会不断生成，直到没有格子满足生成水源的条件。
+	\end{quote}
+	
+	例如，水流的最终状态可能是这样：
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{flow.png}
+		\caption{水的流动} % 图片标题
+		\label{flow} % 标签，用于交叉引用
+	\end{figure}
+	
+	如图\ref{to_merge}所示，被标记的格子周围存在两个水源，因此会形成新的水源。
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{to_merge.png}
+		\caption{中间状态} % 图片标题
+		\label{to_merge} % 标签，用于交叉引用
+	\end{figure}
+	
+	新的水源生成后，最终状态如图\ref{merged}所示。
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{merged.png}
+		\caption{新的水源生成} % 图片标题
+		\label{merged} % 标签，用于交叉引用
+	\end{figure}
+	
+	世界创立之初，k个格子上存在水源，随之，水开始流动、生成。请你计算最终每个格子上的流量。
+	
+	\subsection*{输入描述}
+	第一行一个整数$T(1\leq T\leq 100)$表示数据组数，接下来按组给出数据。
+	
+	对于每组数据：
+	\begin{quote}
+		第一行包含三个整数 $m, n, k$（$1 \le m, n \le 20$），表示网格的行数和列数、初始水源数量。
+		
+		接下来 $k$ 行，每行包含两个整数 $x_i, y_i$（$0 \le x_i < m,\ 0 \le y_i < n$）表示初始水源的坐标。保证坐标不会重复。
+	\end{quote}
+	
+	\subsection*{输出描述}
+	对于每组数据，输出m行，每行包含n个整数，表示最终每个格子的流量。
+	
+	\subsection*{样例}
+	\begin{examplebox}{
+		1\\
+		4 6 2\\
+		0 0\\
+		1 1
+	}{
+		554321\\
+		554321\\
+		443210\\
+		332100
+	}
+	\end{examplebox}
+	
+	\subsection*{说明/提示}
+	在$(0,1)$和$(1,0)$处生成了新的水源。
+	
+\end{problem}

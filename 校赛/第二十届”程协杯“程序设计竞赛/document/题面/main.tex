@@ -1,0 +1,120 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{float}
+\usepackage[UTF8]{ctex} % ✅ 中文支持
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{tcolorbox} % ✅ 灰底支持
+\usepackage{pgffor} % ✅ 自动导入题目
+\usepackage{xstring}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=cyan, citecolor=green]{hyperref}
+\usepackage{circledtext}
+
+\geometry{left=1.8cm,right=1.8cm,top=2cm,bottom=2cm}
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{第二十届“程协杯”程序设计竞赛}
+\fancyfoot[C]{Page \thepage}
+
+\setlist[itemize]{
+	noitemsep,          % 取消条目间的额外间距
+	topsep=4pt,         % 与上方文字的间距
+	partopsep=0pt,      % 当在段落顶部时的额外间距
+	parsep=0pt,         % 条目内段落间距
+	leftmargin=*,       % 左对齐
+	labelsep=0.5em      % 标签与文本的间距
+}
+
+% ======= 带手动缩进命令的伪代码环境 =======
+\newenvironment{pseudocode}{
+	\begin{tcolorbox}[
+		colback=gray!10,
+		colframe=gray!50,
+		boxrule=0pt,
+		sharp corners,
+		left=4pt, right=4pt, top=4pt, bottom=4pt,
+		fontupper=\ttfamily\small
+		]
+		\obeylines
+		\obeyspaces
+	}{
+	\end{tcolorbox}
+}
+
+% 缩进命令
+\newcommand{\indentcode}{\hspace*{2em}}
+
+% ======= Problem 环境 =======
+\newcounter{problem}
+\renewcommand{\theproblem}{\Alph{problem}}
+\newenvironment{problem}[1][]{
+	\clearpage  % 每题从新页开始
+	\refstepcounter{problem}
+	\setcounter{examplecounter}{0} % 重置示例计数器
+	\section*{Problem \theproblem. #1}
+	\addcontentsline{toc}{section}{Problem \theproblem. #1} % 加入目录
+	\vspace{0.4em}\hrule\vspace{0.6em}
+}{\vspace{0.6em}\hrule\vspace{1em}}
+
+% ======= 定义 Example 计数器 =======
+\newcounter{examplecounter}
+\setcounter{examplecounter}{0}
+
+% ======= Example 环境（自动编号）=======
+\newenvironment{examplebox}[2]{
+	\stepcounter{examplecounter}
+	\vspace{0.5em}
+	\begin{tcolorbox}[colback=gray!10,boxrule=0pt,sharp corners,arc=1pt,left=4pt,right=4pt,top=4pt,bottom=4pt]
+		\begin{minipage}[t]{0.48\textwidth}
+			\textbf{Input \theexamplecounter}\\
+			\texttt{#1}
+		\end{minipage}
+		\hfill
+		\begin{minipage}[t]{0.48\textwidth}
+			\textbf{Output \theexamplecounter}\\
+			\texttt{#2}
+		\end{minipage}
+	\end{tcolorbox}
+}{}
+
+\begin{document}
+	
+	% ---- 封面 ----
+	\begin{titlepage}
+		\centering
+		\vspace*{2cm}
+		\includegraphics[width=0.25\textwidth]{logo.png}\par
+		\vspace{1cm}
+		{\Huge 第二十届“程协杯”程序设计竞赛\par}
+		\vspace{0.8cm}
+		{\Large 2025 年 11 月 16 日，成都理工大学\par}
+		\vfill
+		{\large Produced by 第二十届“程协杯”命题组}\\[0.3cm]
+		{\large \today}
+	\end{titlepage}
+	
+	\tableofcontents
+	\clearpage
+	
+	% ---- 导入所有题目 ----
+	\IfFileExists{problems/A.tex}{\input{problems/A.tex}}{}
+	\IfFileExists{problems/B.tex}{\input{problems/B.tex}}{}
+	\IfFileExists{problems/C.tex}{\input{problems/C.tex}}{}
+	\IfFileExists{problems/D.tex}{\input{problems/D.tex}}{}
+	\IfFileExists{problems/E.tex}{\input{problems/E.tex}}{}
+	\IfFileExists{problems/F.tex}{\input{problems/F.tex}}{}
+	\IfFileExists{problems/G.tex}{\input{problems/G.tex}}{}
+	\IfFileExists{problems/H.tex}{\input{problems/H.tex}}{}
+	\IfFileExists{problems/I.tex}{\input{problems/I.tex}}{}
+	\IfFileExists{problems/J.tex}{\input{problems/J.tex}}{}
+	\IfFileExists{problems/K.tex}{\input{problems/K.tex}}{}
+	\IfFileExists{problems/L.tex}{\input{problems/L.tex}}{}
+	\IfFileExists{problems/M.tex}{\input{problems/M.tex}}{}
+	
+	
+\end{document}

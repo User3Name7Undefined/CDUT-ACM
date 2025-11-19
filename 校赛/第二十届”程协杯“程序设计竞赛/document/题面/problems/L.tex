@@ -1,0 +1,135 @@
+\begin{problem}[《世界》]
+	
+	小M喜欢玩一款叫作《世界》的游戏。
+	
+	\subsubsection*{构成与法则}
+	《世界》是一个由方块和地面组成的三维空间，其中，地面是一种由特殊的同种方块构成的无限大平面，甚至可以延申到《世界》外部；方块一共有三种，分别是沙子、石头和火把。
+	我们可以将《世界》的大小表示为 $X,Y,Z$，将内部的位置集合表示为 
+	\[\{(x,y,z)|{x\in[0,X-1],y\in[0,Y-1],z\in[0,Z-1]}\}\]
+	
+	将地面表示为\[\{(x,y,z)|z=-1\}\]
+	
+	《世界》中有一套特殊的物理法则：
+	\begin{quote}
+		方块可以被放置某位置，当且仅当该位置在《世界》内部,且该位置当前没有方块，且相邻六个面的位置已存在方块或为地面。
+		
+		当方块的下方没有紧贴着地面或者方块，我们认为这个方块是悬浮的。石头可以悬浮而不会落下；沙子悬浮会下落。
+		
+		火把是一种特殊的方块，只能附着在相邻的非火把的方块（包括地面）的侧面或上面，且附着关系一旦建立就不会改变。当火把附着的方块被破坏/下落，该火把立刻消失；其余情况下火把不会改变状态。
+	\end{quote}
+	
+	显然，当没有沙子悬浮的时候，《世界》是稳定的。
+	
+	\subsubsection*{你的任务}
+	小M在心中构想了一份计划。计划分为$N$条指令，每一条可能是放置或者破坏。他想让你检测计划的可行性，因此，你需要按顺序检测每条指令是否合法。
+	
+	如果当前指令合法，执行之，输出一行GOODJOB，等待《世界》稳定后再进行下一步；否则，跳过当前指令，输出一行 AREYOUKIDDINGME。所有指令检测完毕后，输出《世界》的状态，具体输出方法将在下文说明。
+	
+	\subsubsection*{指令种类}
+	
+	\textbf{放石头/沙子：}输入格式为一个字符串和三个整数：$PUT\_STONE\ x\ y\ z$或$PUT\_SAND\ x\ y\ z$,参数表示放置位置。
+	如果放置位置没有方块且相邻六个面的位置存在方块或为地面，则合法。
+	
+	\textbf{插火把：}输入格式为一个字符串和四个整数，$PUT\_TORCH\ x\ y\ z\ f$，参数表示放置位置和附着的方向。如果放置位置没有方块且附着位置上存在不为火把的方块或为地面，则合法。$f$ 有以下几种取值：
+	
+	\begin{quote}
+		1：附着在坐标为 $(x+1,y,z)$ 上；
+		
+		2：附着在坐标为 $(x-1,y,z)$ 上；
+		
+		3：附着在坐标为 $(x,y+1,z)$ 上；
+		
+		4：附着在坐标为 $(x,y-1,z)$ 上；
+		
+		5：附着在坐标为 $(x,y,z-1)$ 上。
+	\end{quote}
+	
+	\textbf{破坏：}输入格式为一个字符串和三个整数，$DESTROY\ x\ y\ z$ 参数表示破坏位置。如果破坏位置上存在方块，则合法。
+	
+	\subsubsection*{状态输出}
+	
+	你需要按照下方伪代码表示的方式输出《世界》状态：
+	
+	\begin{pseudocode}
+		OUTPUT "THE WORLD"
+		NEWLINE
+		FOR k FROM 0 TO Z-1
+		\indentcode FOR i FROM 0 TO X-1
+		\indentcode\indentcode FOR j FROM 0 TO Y-1
+		\indentcode\indentcode\indentcode IF stone on (i,j,k) THEN
+		\indentcode\indentcode\indentcode\indentcode OUTPUT 'r'
+		\indentcode\indentcode\indentcode ElSE IF sand on (i,j,k) THEN
+		\indentcode\indentcode\indentcode\indentcode OUTPUT 's'
+		\indentcode\indentcode\indentcode ELSE IF torch on (i,j,k) THEN
+		\indentcode\indentcode\indentcode\indentcode IF f IS 1 THEN
+		\indentcode\indentcode\indentcode\indentcode\indentcode OUTPUT 'v'（小写字母v）
+		\indentcode\indentcode\indentcode\indentcode ELSE IF f IS 2 THEN
+		\indentcode\indentcode\indentcode\indentcode\indentcode OUTPUT '\textasciicircum'（shift+6）
+		\indentcode\indentcode\indentcode\indentcode ELSE IF f IS 3 THEN
+		\indentcode\indentcode\indentcode\indentcode\indentcode OUTPUT '>'（shift+句号）
+		\indentcode\indentcode\indentcode\indentcode ELSE IF f IS 4 THEN
+		\indentcode\indentcode\indentcode\indentcode\indentcode OUTPUT '<'（shift+逗号）
+		\indentcode\indentcode\indentcode\indentcode ELSE
+		\indentcode\indentcode\indentcode\indentcode\indentcode OUTPUT 't'
+		\indentcode\indentcode\indentcode\indentcode ENDIF
+		\indentcode\indentcode\indentcode ELSE
+		\indentcode\indentcode\indentcode\indentcode OUTPUT 'a'
+		\indentcode\indentcode\indentcode ENDIF
+		\indentcode\indentcode ENDFOR
+		\indentcode\indentcode NEWLINE
+		\indentcode ENDFOR
+		\indentcode NEWLINE
+		ENDFOR
+	\end{pseudocode}
+	
+	\subsection*{输入描述}
+	
+	第一行三个整数 $X,Y,Z(1\leq X,Y,Z\leq10)$ 表示《世界》的大小。
+	
+	第二行一个整数 $N(1\leq N\leq 10^5)$ 代表指令数量。
+	
+	随后 $N$ 行，每行一条指令，具体格式见题目描述。
+	
+	对于所有指令，保证$0\leq x<X,0\leq y<Y,0\leq z<Z$。
+	
+	\subsection*{输出描述}
+	
+	对于每条指令，输出一行GOODJOB或仅AREYOUKIDDINGME。
+	
+	最后输出《世界》的状态。
+	
+	\subsection*{样例}
+	\begin{examplebox}{
+		2 2 2\\
+		6\\
+		PUT\_SAND 0 0 1\\
+		PUT\_STONE 1 0 0\\
+		PUT\_TORCH 0 0 0 1\\
+		PUT\_SAND 0 0 1\\
+		DESTROY 0 1 0\\
+		DESTROY 1 0 0
+	}{
+		AREYOUKIDDINGME\\
+		GOODJOB\\
+		GOODJOB\\
+		GOODJOB\\
+		AREYOUKIDDINGME\\
+		GOODJOB\\
+		sa\\
+		aa\\
+		\\
+		aa\\
+		aa
+	}
+	\end{examplebox}
+	
+	\subsection*{说明/提示}
+	样例演示了：放置石头，在石头侧面附着火把，在火把上放沙子；破坏石头，火把消失，沙子下落。
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\textwidth]{destroy.png}
+		\caption{小M的涂鸦} % 图片标题
+		\label{destroy} % 标签，用于交叉引用
+	\end{figure}
+	
+\end{problem}

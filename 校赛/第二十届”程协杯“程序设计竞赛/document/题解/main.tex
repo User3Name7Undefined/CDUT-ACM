@@ -1,0 +1,64 @@
+\documentclass{beamer}
+\usepackage[UTF8]{ctex} % 中文支持
+\usepackage{amsmath} % 数学公式
+\usepackage{amssymb} % 数学符号
+
+% 主题设置
+\usetheme{Madrid}
+\usecolortheme{seahorse}
+
+% 标题页信息
+\title{第二十届“程协杯”程序设计竞赛题目讲解}
+\author{第二十届“程协杯”命题组}
+\date{today}
+
+\begin{document}
+	
+	% 标题页
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% 目录页（可选）
+	\begin{frame}{目录}
+		\tableofcontents
+	\end{frame}
+	
+	% 题目难度分布页
+	\begin{frame}{难度分布}
+		
+		Easy：B、G
+		
+		Easy-Medium：F、J、K、M
+		
+		Medium：A、D、I
+		
+		Medium-Hard：C、E、H
+		
+		Hard：L
+		
+	\end{frame}
+	
+	\section{B}
+	\begin{frame}{B.罚时}
+		\begin{block}{分析}
+			设最终解决问题的次序为a,b,c.....则总用时为$(t_a)+(t_a+t_b)+(t_a+t_b+t_c)+......$。
+			
+			先解决的题目会被计算更多次，因此需要先解决花费时间更少的题目。
+		\end{block}
+		
+		\begin{block}{解法}
+			把题目按照花费时间从小到大排序，设$T$为题目用时，则$T_i\leftarrow T_{i-1}+t_i$。
+			
+			求出$\sum_{i=1}^n T$即可。
+		\end{block}
+	\end{frame}
+	
+	\section{G}
+	\begin{frame}{G.恋爱物语}
+		\begin{block}{解法}
+			判断是否有$a[b[i]]=i$即可。
+		\end{block}
+	\end{frame}
+	
+\end{document}
