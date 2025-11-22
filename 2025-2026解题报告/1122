@@ -1,0 +1,59 @@
+---
+title: https://atcoder.jp/contests/abc376/tasks/abc376_e
+---
+
+# https://atcoder.jp/contests/abc376/tasks/abc376_e
+
+# Solution
+
+假设 a[i]是最大值，那么我们需要找到所以<=a[i]的相对应的所有的 b[i],那么考虑：  
+1.绑定 a[i]和 b[i]  
+2.排序 a[i]  
+3.利用最大堆找出<=a[i]的所有 a[j]对应的 b[j]
+
+```
+#include <bits/stdc++.h>
+
+using i64 = long long;
+
+void go() {
+  i64 n, k;
+  std::cin >> n >> k;
+  std::vector<int> a(n), b(n), order(n);
+  for (int i = 0; i < n; i++) {
+    std::cin >> a[i];
+  }
+  for (int i = 0; i < n; i++) {
+    std::cin >> b[i];
+  }
+  std::iota(order.begin(), order.end(), 0);
+  std::ranges::sort(order, [&](int i, int j) { return a[i] < a[j]; });
+  std::priority_queue<i64> pq;
+  i64 ans = 1e18;
+  i64 sum = 0;
+  for (int i = 0; i < n; i++) {
+    auto x = order[i];
+    pq.push(b[x]);
+    sum += b[x];
+    if (pq.size() < k) {
+      continue;
+    } else {
+      ans = std::min(ans, a[x] * sum);
+      sum -= pq.top();
+      pq.pop();
+    }
+  }
+  std::cout << ans << '\n';
+}
+
+int main() {
+  std::ios::sync_with_stdio(false);
+  std::cin.tie(nullptr);
+  int t;
+  std::cin >> t;
+  while (t--) {
+    go();
+  }
+  return 0;
+}
+```
